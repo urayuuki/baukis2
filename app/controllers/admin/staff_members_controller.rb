@@ -1,11 +1,13 @@
 class Admin::StaffMembersController < Admin::Base
-  def index
+  
+  def index    
     @staff_members = StaffMember.order(:family_name_kana,:given_name_kana)
+      .page(params[:page])
   end
 
   def show
     staff_member = StaffMember.find(params[:id])
-    redirect_to[:edit,:admin, staff_member]
+    redirect_to [ :edit,:admin, staff_member]
   end
 
   def new
@@ -37,7 +39,10 @@ class Admin::StaffMembersController < Admin::Base
     end
   end
 
-  private def staff_member_params
+  
+  private
+  
+  def staff_member_params
     params.require(:staff_member).permit(
       :email,:password,
       :family_name,:given_name,
@@ -45,6 +50,7 @@ class Admin::StaffMembersController < Admin::Base
       :start_date,:end_date,:suspended
     )
   end
+
   def destroy
     staff_member = StaffMember.find(params[:id])
     staff_member.destroy!
