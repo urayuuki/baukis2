@@ -31,6 +31,10 @@ div#wrapper{
 
           }
         }
+        div.input-block {
+          input {margin-right: $narrow*2;}
+        }
+
         div.notes{
           text-align: right;
           font-size: $small;
@@ -46,6 +50,17 @@ div#wrapper{
           input[type="submit"]{
             margin-left: $wide $wide*2;
           }
+        }
+        div.field_with_errors {
+          display: inline;
+          padding: 0;
+          label { color: $red; }
+          input { background-color: $pink; }
+        }
+        div.error-message{
+          color: $red;
+          font-size: $small;
+          padding: 0 $very-wide;
         }
       }
     }
