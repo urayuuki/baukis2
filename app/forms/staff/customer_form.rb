@@ -10,7 +10,7 @@ class Staff::CustomerForm
     (2 - @customer.personal_phones.size).times do
       @customer.personal_phones.build
     end
-    self.iuputs_home_address = @customer.home_address.present?
+    self.inputs_home_address = @customer.home_address.present?
     self.inputs_work_address = @customer.work_address.present?
     @customer.build_home_address unless @customer.home_address
     @customer.build_work_address unless @customer.work_address
@@ -77,7 +77,7 @@ class Staff::CustomerForm
   private
 
   def customer_params
-    @params.require(:customer).expect(:phones).permit(
+    @params.require(:customer).except(:phones).permit(
       :email, :password,
       :family_name, :given_name, :family_name_kana, :given_name_kana,
       :birthday, :gender
@@ -87,14 +87,14 @@ class Staff::CustomerForm
   private
 
   def home_address_params
-    @params.require(:home_address).expect(:phones).permit(:postal_code, :prefecture, :city,:address1, :address2, :company_name, :division_name)
+    @params.require(:home_address).except(:phones).permit(:postal_code, :prefecture, :city,:address1, :address2, :company_name, :division_name)
   end
 
 
   private
 
   def work_address_params
-    @params.require(:work_address).expect(:phones).permit(:postal_code, :prefecture, :city, :address1, :address2, :company_name,:division_name)
+    @params.require(:work_address).except(:phones).permit(:postal_code, :prefecture, :city, :address1, :address2, :company_name,:division_name)
   end
 
   private
